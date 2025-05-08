@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Planeta Digital</title>
+</head>
+
+<body class="min-h-screen flex flex-col bg-gray-100">
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="flex-grow flex items-center justify-center p-4">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
+        <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">Formulario de Contacto</h2>
+        <form action="../controlador/send_mail.php" method="post" class="space-y-4">
+            <div>
+                <label for="nombre" class="block font-medium mb-1 text-gray-600">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required
+                       class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none">
+            </div>
+            <div>
+                <label for="correo" class="block font-medium mb-1 text-gray-600">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo" required
+                       class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none">
+            </div>
+            <div>
+                <label for="asunto" class="block font-medium mb-1 text-gray-600">Asunto:</label>
+                <input type="text" id="asunto" name="asunto" required
+                       class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none">
+            </div>
+            <div>
+                <label for="mensaje" class="block font-medium mb-1 text-gray-600">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" required rows="4"
+                          class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none"></textarea>
+            </div>
+            <button type="submit"
+                    class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors">
+                Enviar
+            </button>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var loginIcon = document.getElementById('loginIcon');
+        var loginDropdown = document.getElementById('loginDropdown');
+
+        loginIcon.addEventListener('click', function (event) {
+            event.preventDefault();
+            loginDropdown.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', function (event) {
+            if (!event.target.closest('.login-container')) {
+                loginDropdown.classList.add('hidden');
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

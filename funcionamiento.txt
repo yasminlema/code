@@ -1,0 +1,6 @@
+inicio de sesión correcto y corregido
+inicia sesión correctamente teniendo en cuenta el tipo de cuenta
+pagina principal del admin casi perfecta, faltan algunas pinceladas, header y footer correctos, logout correcto
+index corregido
+nmbre de usuario en el desplegable correcto
+listar los libros por categoría correcto

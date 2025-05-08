@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Planeta Digital</title>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="flex-grow flex flex-col justify-center items-center text-center px-4">
+    <section class="bg-white mb-10">
+        <h2 class="text-4xl p-4 mb-5 text-green-600 font-semibold">
+            Bienvenido a <i>Planeta Digital</i>, donde encontrarás el libro que buscas
+        </h2>
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-2xl font-bold text-green-500 mb-6">Descubre una amplia selección de libros y sumérgete en historias fascinantes</h2>
+            <div class="bg-green-500 text-white p-6 rounded-xl shadow-lg mb-6">
+                <h3 class="text-2xl font-semibold mb-4">Suscribiéndote podrás:</h3>
+                <ul class="space-y-2 text-white text-base text-center">
+                    <li class="flex justify-center items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Leer todos los libros disponibles</span>
+                    </li>
+                    <li class="flex justify-center items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Valorar y comentar los libros</span>
+                    </li>
+                    <li class="flex justify-center items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Ver los comentarios de otros lectores</span>
+                    </li>
+                    <li class="flex justify-center items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span>Añadir libros a favoritos</span>
+                    </li>
+                </ul>
+                <p class="mt-6 text-xl font-bold italic">¡Todo esto GRATIS!</p>
+            </div>
+            <a th:href="@{/login}"
+               class="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-full transition-all duration-300 shadow-md">
+                Suscribirse ahora
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+
+</html>

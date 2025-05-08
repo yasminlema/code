@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>Libros de Categoría</title>
+</head>
+<body class="font-sans flex flex-col min-h-screen">
+<header th:replace="~{fragments/header :: header}"></header>
+
+<section class="p-4">
+  <h2 class="text-3xl text-green-500 text-center my-8" th:text="${categoriaNombre}"></h2>
+
+  <ul class="flex space-x-4 justify-center mb-8">
+    <li th:each="categoria : ${categorias}">
+      <a th:href="@{/PagLibrosPorCategoria(categoriaCod=${categoria.categoriaCod})}"
+         th:text="${categoria.catNombre}"
+         class="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-700"></a>
+    </li>
+  </ul>
+
+  <div class="flex flex-wrap justify-around px-6 py-4">
+    <div th:each="libro : ${libros}" class="w-40 text-center mb-4">
+      <a th:href="@{'/detalleLibro/' + ${libro.libroCod}}">
+        <img th:src="@{'/imagenes/libros/' + ${libro.libroimagen} + '.jpg'}"
+             th:alt="${libro.librotitulo}"
+             class="h-48 w-auto mb-2 hover:scale-105 transition-transform"/>
+      </a>
+      <h3 th:text="${libro.librotitulo}" class="truncate"></h3>
+    </div>
+  </div>
+</section>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+</body>
+</html>

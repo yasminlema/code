@@ -1,0 +1,41 @@
+<!-- src/main/resources/templates/fragments/footer.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>footer</title>
+</head>
+<body>
+<footer class="bg-green-500 text-white p-4 flex flex-wrap justify-between">
+    <section id="redes-sociales" class="flex flex-col ml-5 mr-5">
+        <h3 class="text-xl mb-2 font-semibold">Redes Sociales</h3>
+        <div class="flex gap-3">
+            <a href="#"><img src="/imagenes/redes/facebook.png" alt="Facebook"
+                             class="w-[35px] hover:scale-110 transition-transform"></a>
+            <a href="#"><img src="/imagenes/redes/insta.png" alt="Instagram"
+                             class="w-[35px] hover:scale-110 transition-transform"></a>
+            <a href="#"><img src="/imagenes/redes/twitter.png" alt="Twitter"
+                             class="w-[35px] hover:scale-110 transition-transform"></a>
+            <a href="#"><img src="/imagenes/redes/github.svg" alt="GitHub"
+                             class="w-[35px] hover:scale-110 transition-transform"></a>
+        </div>
+    </section>
+
+    <section id="linkSobreMi" class="ml-5 mr-5">
+        <h3 class="text-xl mb-2 font-semibold">
+            <a th:href="@{/sobreMi}" class="hover:text-green-200 transition-colors">Sobre mí</a>
+        </h3>
+        <h3 class="text-xl mb-2 font-semibold">
+            <a th:href="@{/formularioContacto}" class="hover:text-green-200 transition-colors">Formulario de contacto</a>
+        </h3>
+    </section>
+
+    <section id="condiciones-envio" class="ml-5 mr-5">
+        <h3 class="text-xl mb-2 font-semibold">Contacto</h3>
+        <p>Teléfono: 666 66 66 66</p>
+        <p>Email: PlanetaDigital@gmail.com</p>
+    </section>
+</footer>
+
+</body>
+</html>

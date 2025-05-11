@@ -55,9 +55,9 @@
       <p class="mt-2 comentario-texto" th:attr="data-comentario-cod=${comentario.comentarioCod}"
          th:text="${comentario.comentLibro}">Texto del comentario</p>
 
-      <div class="flex justify-end gap-2 mt-2">
-        <!-- Solo muestra el botón de editar si el comentario pertenece al usuario autenticado -->
-        <a th:if="${comentario.usuario.usuarioCod == usuarioCod}" href="#" class="editarComentarioBtn"
+      <!-- Solo muestra los botones si el comentario pertenece al usuario autenticado -->
+      <div class="flex justify-end gap-2 mt-2" th:if="${comentario.usuario.usuarioCod == usuarioCod}">
+        <a href="#" class="editarComentarioBtn"
            th:attr="data-comentario-cod=${comentario.comentarioCod}">
           <img src="/imagenes/iconos/lapiz.svg" alt="Editar" class="w-5">
         </a>
@@ -85,12 +85,14 @@
       </form>
     </div>
     <h3 class="text-xl font-semibold mt-6 mb-2">Agregar Comentario</h3>
-    <form method="POST" action="detalleLibro.php?libroCod=<?php echo $libroCod; ?>" class="space-y-3">
-      <textarea name="comentario" rows="3" placeholder="Escribe tu comentario aquí..."
-                class="w-full border rounded p-2"></textarea>
+    <form method="POST" th:action="@{/agregarComentario}" class="space-y-3">
+  <textarea name="comentario" rows="3" placeholder="Escribe tu comentario aquí..."
+            class="w-full border rounded p-2"></textarea>
+      <input type="hidden" name="libroCod" th:value="${libro.libroCod}" />
       <button type="submit"
               class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Enviar</button>
     </form>
+
   </div>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>

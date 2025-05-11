@@ -12,40 +12,49 @@
 
 <header th:replace="~{fragments/header :: header}"></header>
 
-<main class="flex-grow flex items-center justify-center p-4">
+<main class="flex-grow flex items-center justify-center p-6">
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-        <h2 class="text-2xl font-bold mb-6 text-center text-gray-700">Formulario de Contacto</h2>
-        <form action="../controlador/send_mail.php" method="post" class="space-y-4">
+        <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">
+            Formulario de Contacto
+        </h2>
+
+        <form action="../controlador/send_mail.php" method="post" class="space-y-5">
             <div>
-                <label for="nombre" class="block font-medium mb-1 text-gray-600">Nombre:</label>
+                <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required
-                       class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none">
+                       class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none transition-all duration-300 text-base">
             </div>
+
             <div>
-                <label for="correo" class="block font-medium mb-1 text-gray-600">Correo Electrónico:</label>
+                <label for="correo" class="block text-sm font-medium text-gray-700">Correo Electrónico:</label>
                 <input type="email" id="correo" name="correo" required
-                       class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none">
+                       class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none transition-all duration-300 text-base">
             </div>
+
             <div>
-                <label for="asunto" class="block font-medium mb-1 text-gray-600">Asunto:</label>
+                <label for="asunto" class="block text-sm font-medium text-gray-700">Asunto:</label>
                 <input type="text" id="asunto" name="asunto" required
-                       class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none">
+                       class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none transition-all duration-300 text-base">
             </div>
+
             <div>
-                <label for="mensaje" class="block font-medium mb-1 text-gray-600">Mensaje:</label>
-                <textarea id="mensaje" name="mensaje" required rows="4"
-                          class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-400 focus:outline-none"></textarea>
+                <label for="mensaje" class="block text-sm font-medium text-gray-700">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" required rows="5"
+                          class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none transition-all duration-300 text-base"></textarea>
             </div>
+
             <button type="submit"
-                    class="w-full bg-green-500 text-white py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors">
+                    class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 transform mt-4 text-base">
                 Enviar
             </button>
         </form>
     </div>
 </main>
 
-<footer th:replace="~{fragments/footer :: footer}"></footer>
+<footer th:replace="~{fragments/footer :: footer}" class="mt-auto"></footer>
 
+</body>
+</html>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var loginIcon = document.getElementById('loginIcon');
@@ -63,6 +72,3 @@
         });
     });
 </script>
-</body>
-
-</html>

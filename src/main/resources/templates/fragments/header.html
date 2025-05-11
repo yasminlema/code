@@ -39,8 +39,8 @@
         <!-- Botón favoritos -->
         <th:block th:if="${tipocuenta == 10 || tipocuenta == 20}">
           <li>
-            <a href="favoritos">
-              <img src="/imagenes/iconos/corazon.svg" alt="favoritos" class="w-8 h-8 hover:scale-125 transition-transform">
+            <a th:href="@{/misFavoritos}" class="text-gray-700 hover:text-indigo-600">
+            <img src="/imagenes/iconos/corazon.svg" alt="favoritos" class="w-8 h-8 hover:scale-125 transition-transform">
             </a>
           </li>
         </th:block>

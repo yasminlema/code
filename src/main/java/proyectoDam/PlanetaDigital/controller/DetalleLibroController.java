@@ -12,6 +12,7 @@ import proyectoDam.PlanetaDigital.model.Comentario;
 import proyectoDam.PlanetaDigital.model.Libro;
 import proyectoDam.PlanetaDigital.model.Usuario;
 import proyectoDam.PlanetaDigital.repository.ComentarioRepository;
+import proyectoDam.PlanetaDigital.repository.FavoritoRepository;
 import proyectoDam.PlanetaDigital.repository.LibroRepository;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public class DetalleLibroController {
 
     @Autowired
     private ComentarioRepository comentarioRepository;
+
+    @Autowired
+    private FavoritoRepository favoritoRepository;
 
     @GetMapping("/detalleLibro/{id}")
     public String detalleLibro(@PathVariable("id") int id, Model model, HttpSession session) {
@@ -41,8 +45,16 @@ public class DetalleLibroController {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
         model.addAttribute("usuarioCod", usuarioCod);
 
+        // 🖤 Comprobar si el libro es favorito
+        boolean esFavorito = false;
+        if (usuarioCod != null) {
+            esFavorito = favoritoRepository.existsByUsuarioCodAndLibroCod(usuarioCod, id);
+        }
+        model.addAttribute("esFavorito", esFavorito);
+
         return "detalleLibro";
     }
+
 
 
 

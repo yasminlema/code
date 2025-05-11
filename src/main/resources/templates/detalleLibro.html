@@ -26,12 +26,12 @@
             leer
           </a>
 
-          <form action="detalleLibro.php?libroCod=<?php echo $libroCod; ?>" method="POST">
-            <input type="hidden" name="accionFavorito"
-                   value="<?php echo $esFavorito ? 'eliminar' : 'agregar'; ?>">
+          <form th:action="@{/corazonFavorito}" method="POST">
+            <input type="hidden" name="usuarioCod" th:value="${usuarioCod}" />
+            <input type="hidden" name="libroCod" th:value="${libro.libroCod}" />
             <button type="submit">
               <img src="/imagenes/iconos/corazon.svg" alt="Favorito"
-                   class="w-6 <?php echo $esFavorito ? 'opacity-100' : 'opacity-30'; ?>">
+                   class="w-6" th:classappend="${esFavorito} ? 'opacity-100' : 'opacity-30'">
             </button>
           </form>
         </div>

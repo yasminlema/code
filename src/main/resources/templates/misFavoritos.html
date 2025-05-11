@@ -6,20 +6,20 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <title>Mis Favoritos</title>
 </head>
-<body class="font-sans flex flex-col min-h-screen">
+<body class="font-sans flex flex-col min-h-screen bg-gray-50">
+
 <header th:replace="~{fragments/header :: header}"></header>
 
-<section class="p-4 flex-grow">
-  <h2 class="text-3xl text-green-500 text-center my-8">Libros Favoritos</h2>
-
-  <div th:if="${favoritos != null and !favoritos.isEmpty()}" class="flex flex-wrap justify-around px-6 py-4">
-    <div th:each="libro : ${favoritos}" class="w-40 text-center mb-4">
+<section class="flex-grow py-6 px-4">
+  <h2 class="text-3xl text-green-500 text-center my-8 font-semibold">Mis Favoritos</h2>
+  <div th:if="${favoritos != null and !favoritos.isEmpty()}" class="flex flex-wrap justify-center gap-6 py-6">
+    <div th:each="libro : ${favoritos}" class="w-48 bg-white rounded-xl shadow-lg transform hover:scale-105 hover:shadow-2xl transition duration-300 ease-in-out p-4 text-center">
       <a th:href="@{'/detalleLibro/' + ${libro.libroCod}}">
         <img th:src="@{'/imagenes/libros/' + ${libro.libroimagen} + '.jpg'}"
              th:alt="${libro.librotitulo}"
-             class="h-48 w-auto mb-2 hover:scale-105 transition-transform"/>
+             class="h-48 w-full object-contain rounded-lg mb-4 transition-all duration-300 ease-in-out hover:opacity-90" />
       </a>
-      <h3 th:text="${libro.librotitulo}" class="truncate"></h3>
+      <h3 th:text="${libro.librotitulo}" th:title="${libro.librotitulo}" class="truncate font-semibold text-gray-700"></h3>
     </div>
   </div>
 
@@ -30,5 +30,23 @@
 </section>
 
 <footer th:replace="~{fragments/footer :: footer}" class="mt-auto"></footer>
+
 </body>
 </html>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      var loginIcon = document.getElementById('loginIcon');
+      var loginDropdown = document.getElementById('loginDropdown');
+
+      loginIcon.addEventListener('click', function (event) {
+          event.preventDefault();
+          loginDropdown.classList.toggle('hidden');
+      });
+
+      window.addEventListener('click', function (event) {
+          if (!event.target.closest('.login-container')) {
+              loginDropdown.classList.add('hidden');
+          }
+      });
+  });
+</script>

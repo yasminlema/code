@@ -38,11 +38,6 @@ public class PaginaPrincipalSesionIniciadaController {
             List<Libro> destacados = libroRepository.findDestacados();
             System.out.println("Destacados: " + destacados); // Imprime la lista de destacados
             model.addAttribute("destacados", destacados);
-
-            // Obtener libros recientes (librocat = 20)
-            List<Libro> recientes = libroRepository.findRecientes();
-            System.out.println("Recientes: " + recientes); // Imprime la lista de recientes
-            model.addAttribute("recientes", recientes);
         }
 
         return "paginaPrincipalSesionIniciada";

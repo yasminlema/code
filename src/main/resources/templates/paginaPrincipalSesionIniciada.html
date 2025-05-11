@@ -5,64 +5,43 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Planeta Digital</title>
 </head>
-<body class="font-sans flex flex-col min-h-screen">
+<body class="font-sans flex flex-col min-h-screen bg-gray-50">
+
 <header th:replace="~{fragments/header :: header}"></header>
 
-<section class="p-4">
+<section class="p-6 border-b border-gray-200 bg-white shadow-sm">
     <ul class="flex space-x-4 justify-center">
         <li th:each="categoria : ${categorias}">
             <a th:href="@{/PagLibrosPorCategoria(categoriaCod=${categoria.categoriaCod})}"
                th:text="${categoria.catNombre}"
-               class="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-700"></a>
+               class="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-700 transition ease-in-out duration-300">
+            </a>
         </li>
     </ul>
 </section>
 
-<section class="flex-grow">
-    <div th:if="${libros}">
-        <h2 class="text-2xl text-center py-4" th:text="${categoriaNombre}"></h2>
-        <div class="flex flex-wrap justify-around px-6 py-4">
-            <div th:each="libro : ${libros}" class="w-40 text-center mb-4">
+<section class="flex-grow py-6 px-4">
+    <!-- Sección de Libros Destacados -->
+    <div th:if="${destacados}">
+        <h2 class="text-3xl text-green-500 text-center my-8 font-semibold">Destacados</h2>
+        <div class="flex flex-wrap justify-center gap-6 py-6">
+            <div th:each="libro : ${destacados}" class="w-48 bg-white rounded-xl shadow-lg transform hover:scale-105 hover:shadow-2xl transition duration-300 ease-in-out p-4 text-center">
                 <a th:href="@{'/detalleLibro/' + ${libro.libroCod}}">
                     <img th:src="@{'/imagenes/libros/' + ${libro.libroimagen} + '.jpg'}"
                          th:alt="${libro.librotitulo}"
-                         class="h-48 w-auto mb-2 hover:scale-105 transition-transform"/>
+                         class="h-48 w-full object-contain rounded-lg mb-4 transition-all duration-300 ease-in-out hover:opacity-90" />
                 </a>
-                <h3 th:text="${libro.librotitulo}" class="truncate"></h3>
-            </div>
-        </div>
-    </div>
-
-    <!-- Verificar los libros destacados -->
-    <div th:if="${destacados}">
-        <h2 class="text-3xl text-green-500 text-center my-8">Catálogo de libros</h2>
-        <h3 class="text-2xl text-green-500 mb-4">Destacados</h3>
-        <div class="flex flex-wrap justify-around px-6 py-4">
-            <div th:each="libro : ${destacados}" class="w-40 text-center mb-4">
-                <a th:href="@{'/detalleLibro/' + ${libro.libroCod}}">
-                    <img th:src="@{'/imagenes/libros/' + ${libro.libroimagen} + '.jpg'}"
-                         th:alt="${libro.librotitulo}" class="h-48 w-auto mb-2 hover:scale-105 transition-transform"/>
-                </a>
-                <h3 th:text="${libro.librotitulo}" class="truncate"></h3>
-            </div>
-        </div>
-
-        <h3 class="text-2xl text-green-500 mt-8 mb-4">Añadidos Recientemente</h3>
-        <div class="flex flex-wrap justify-around px-6 py-4">
-            <div th:each="libro : ${recientes}" class="w-40 text-center mb-4">
-                <a th:href="@{'/detalleLibro/' + ${libro.libroCod}}">
-                    <img th:src="@{'/imagenes/libros/' + ${libro.libroimagen} + '.jpg'}"
-                         th:alt="${libro.librotitulo}" class="h-48 w-auto mb-2 hover:scale-105 transition-transform"/>
-                </a>
-                <h3 th:text="${libro.librotitulo}" class="truncate"></h3>
+                <h3 th:text="${libro.librotitulo}" th:title="${libro.librotitulo}" class="truncate font-semibold text-gray-700"></h3>
             </div>
         </div>
     </div>
 </section>
 
 <footer th:replace="~{fragments/footer :: footer}"></footer>
+
 </body>
 </html>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var loginIcon = document.getElementById('loginIcon');

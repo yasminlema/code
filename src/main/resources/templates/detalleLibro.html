@@ -38,12 +38,24 @@
       </div>
     </div>
 
-    <h2 class="text-2xl font-semibold mb-4 text-center">Comentarios</h2>
+    <div class="text-center mt-6">
+      <form th:action="@{/valorarLibro}" method="POST" id="valoracionForm" class="flex gap-1 items-center">
+        <input type="hidden" name="libroCod" th:value="${libro.libroCod}" />
+        <input type="hidden" name="usuarioCod" th:value="${usuarioCod}" />
+        <input type="hidden" id="valoracionInput" name="valoracion" th:value="${valoracionUsuario}"/>
 
+        <img src="/imagenes/iconos/estrella.svg" data-value="1" class="w-6 cursor-pointer star opacity-30 hover:opacity-100 transition" />
+        <img src="/imagenes/iconos/estrella.svg" data-value="2" class="w-6 cursor-pointer star opacity-30 hover:opacity-100 transition" />
+        <img src="/imagenes/iconos/estrella.svg" data-value="3" class="w-6 cursor-pointer star opacity-30 hover:opacity-100 transition" />
+        <img src="/imagenes/iconos/estrella.svg" data-value="4" class="w-6 cursor-pointer star opacity-30 hover:opacity-100 transition" />
+        <img src="/imagenes/iconos/estrella.svg" data-value="5" class="w-6 cursor-pointer star opacity-30 hover:opacity-100 transition" />
+      </form>
+    </div>
+
+    <h2 class="text-2xl font-semibold mb-4 text-center">Comentarios</h2>
     <div th:if="${#lists.isEmpty(comentarios)}">
       <p class="text-gray-500 text-center">No hay comentarios para este libro.</p>
     </div>
-
     <div th:each="comentario : ${comentarios}" class="bg-white border rounded p-4 mb-4 shadow">
       <p class="font-bold">
         <span th:text="${comentario.usuario.usuNombre + ' ' + comentario.usuario.usuApellidos}">Nombre Apellido</span>:
@@ -51,7 +63,6 @@
       01/01/2025 12:00
     </span>
       </p>
-
       <p class="mt-2 comentario-texto" th:attr="data-comentario-cod=${comentario.comentarioCod}"
          th:text="${comentario.comentLibro}">Texto del comentario</p>
 
@@ -92,7 +103,6 @@
       <button type="submit"
               class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Enviar</button>
     </form>
-
   </div>
 </main>
 <footer th:replace="~{fragments/footer :: footer}"></footer>
@@ -133,7 +143,44 @@
           document.querySelector(`.editarComentarioForm[data-comentario-cod="${comentarioCod}"]`).style.display = 'none';
       });
   });
-</script>
 
+  document.addEventListener('DOMContentLoaded', () => {
+    const stars = document.querySelectorAll('.star');
+    const input = document.getElementById('valoracionInput');
+    const form = document.getElementById('valoracionForm');
+
+    const valoracionInicial = parseInt(input.value);
+
+    // Pintar la valoración guardada al cargar
+    if (valoracionInicial > 0) {
+      stars.forEach((s, i) => {
+        s.classList.toggle('opacity-100', i < valoracionInicial);
+        s.classList.toggle('opacity-30', i >= valoracionInicial);
+      });
+    }
+
+    stars.forEach((star, index) => {
+      star.addEventListener('mouseover', () => {
+        stars.forEach((s, i) => {
+          s.classList.toggle('opacity-100', i <= index);
+          s.classList.toggle('opacity-30', i > index);
+        });
+      });
+
+      star.addEventListener('mouseout', () => {
+        const valor = parseInt(input.value);
+        stars.forEach((s, i) => {
+          s.classList.toggle('opacity-100', i < valor);
+          s.classList.toggle('opacity-30', i >= valor);
+        });
+      });
+
+      star.addEventListener('click', () => {
+        input.value = star.dataset.value;
+        form.submit();
+      });
+    });
+  });
+</script>
 </body>
 </html>

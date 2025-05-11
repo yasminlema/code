@@ -14,6 +14,7 @@ import proyectoDam.PlanetaDigital.model.Usuario;
 import proyectoDam.PlanetaDigital.repository.ComentarioRepository;
 import proyectoDam.PlanetaDigital.repository.FavoritoRepository;
 import proyectoDam.PlanetaDigital.repository.LibroRepository;
+import proyectoDam.PlanetaDigital.repository.ValoracionRepository;
 
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class DetalleLibroController {
 
     @Autowired
     private FavoritoRepository favoritoRepository;
+
+    @Autowired
+    private ValoracionRepository valoracionRepository;
 
     @GetMapping("/detalleLibro/{id}")
     public String detalleLibro(@PathVariable("id") int id, Model model, HttpSession session) {
@@ -45,12 +49,23 @@ public class DetalleLibroController {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
         model.addAttribute("usuarioCod", usuarioCod);
 
+        Double promedio = valoracionRepository.obtenerPromedioValoracion(id);
+        if (promedio == null) promedio = 0.0;
+
         // 🖤 Comprobar si el libro es favorito
         boolean esFavorito = false;
         if (usuarioCod != null) {
             esFavorito = favoritoRepository.existsByUsuarioCodAndLibroCod(usuarioCod, id);
         }
         model.addAttribute("esFavorito", esFavorito);
+
+        if (usuarioCod != null) {
+            valoracionRepository.findByLibro_LibroCodAndUsuario_UsuarioCod(id, usuarioCod)
+                    .ifPresent(valoracion -> model.addAttribute("valoracionUsuario", valoracion.getValoracion()));
+        } else {
+            model.addAttribute("valoracionUsuario", 0); // No ha valorado
+        }
+
 
         return "detalleLibro";
     }

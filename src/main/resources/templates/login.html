@@ -6,9 +6,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body class="font-sans bg-white min-h-screen flex flex-col">
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 font-sans min-h-screen flex flex-col">
 
-<header class="bg-green-500 text-white p-4 flex justify-between items-center px-6 py-4">
+<!-- Header -->
+<header class="bg-green-500 text-white px-6 py-4 flex justify-between items-center shadow-md">
     <a th:href="@{/}">
         <img th:src="@{/imagenes/logo/logo.png}" alt="Logo" class="w-44 h-auto">
     </a>
@@ -17,41 +18,48 @@
     </a>
 </header>
 
-<main class="flex flex-1">
-    <div class="w-1/2 flex items-center justify-center p-6">
-        <img th:src="@{/imagenes/portada.jpeg}" alt="Imagen representativa" class="max-w-x7 h-auto">
+<!-- Main -->
+<main class="flex flex-grow flex-col lg:flex-row items-center justify-center p-8 gap-10">
+    <!-- Imagen de Portada más grande -->
+    <div class="hidden lg:flex w-full lg:w-1/2 items-center justify-center">
+        <img th:src="@{/imagenes/portada.jpeg}" alt="Imagen representativa" class="rounded-2xl shadow-lg w-full h-auto max-w-4xl object-cover">
     </div>
 
-    <div class="w-1/2 flex items-center justify-center p-6">
-        <div class="bg-green-500 p-8 rounded-lg shadow-lg max-w-md w-full">
-            <div th:if="${alertError != null}" class="bg-red-100 text-red-800 p-3 rounded mb-4 text-center">
-                <span th:text="${alertError}"></span>
-            </div>
+    <!-- Formulario -->
+    <div class="w-full max-w-md bg-white p-10 rounded-3xl shadow-2xl border-t-8 border-green-500">
+        <h2 class="text-3xl font-bold text-green-500 text-center mb-8">Iniciar sesión</h2>
 
-            <h2 class="text-3xl text-white font-semibold text-center mb-8">Iniciar sesión</h2>
-
-            <form th:action="@{/controlador/login}" method="post" class="space-y-6">
-                <input type="text" id="autUsuario" name="autUsuario" placeholder="Usuario" required
-                       class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-300">
-
-                <input type="password" id="autPass" name="autPass" placeholder="Contraseña" required
-                       class="w-full p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-300">
-
-                <div class="flex justify-end space-x-4">
-                    <button type="submit"
-                            class="w-1/2 bg-green-700 text-white py-3 rounded hover:bg-green-800 transition">Iniciar
-                        sesión</button>
-                    <button type="button" th:onclick="'location.href=\'' + @{/registro} + '\''"
-                            class="w-1/2 bg-gray-300 text-black py-3 rounded hover:bg-gray-400 transition">Registrarse</button>
-                </div>
-            </form>
+        <div th:if="${alertError != null}" class="bg-red-100 text-red-800 p-3 rounded mb-4 text-center">
+            <span th:text="${alertError}"></span>
         </div>
+
+        <form th:action="@{/controlador/login}" method="post" class="space-y-6">
+            <!-- Usuario -->
+            <input type="text" name="autUsuario" placeholder="Usuario" required
+                   class="w-full p-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+
+            <!-- Contraseña -->
+            <input type="password" name="autPass" placeholder="Contraseña" required
+                   class="w-full p-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+
+            <!-- Botones -->
+            <div class="flex justify-between pt-4">
+                <a th:href="@{/registrarse}"
+                   class="px-6 py-3 bg-gray-300 text-gray-800 rounded-xl hover:bg-gray-400 transition shadow-md">
+                    Registrarse
+                </a>
+                <button type="submit"
+                        class="px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition shadow-md">
+                    Iniciar sesión
+                </button>
+            </div>
+        </form>
     </div>
 </main>
 
-<footer class="bg-green-500 text-black text-center p-4">
+<!-- Footer -->
+<footer class="bg-green-500 text-white text-center py-4 shadow-inner mt-10">
     © 2025, Hecho por Yasmin Lema Blanco
 </footer>
-
 </body>
 </html>

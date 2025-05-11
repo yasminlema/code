@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Planeta Digital - Registro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-gray-100 to-gray-200 font-sans min-h-screen flex flex-col">
+
+<!-- Header -->
+<header class="bg-green-500 text-white px-6 py-4 flex justify-between items-center shadow-md">
+    <a th:href="@{/}">
+        <img th:src="@{/imagenes/logo/logo.png}" alt="Logo" class="w-44 h-auto">
+    </a>
+    <a th:href="@{/}">
+        <img th:src="@{/imagenes/iconos/casa.svg}" alt="Home" class="w-8 h-8 hover:scale-125 transition-transform">
+    </a>
+</header>
+
+<!-- Main content -->
+<main class="flex-grow flex items-center justify-center px-6 py-12">
+    <div class="bg-white shadow-2xl rounded-3xl w-full max-w-4xl p-10 border-t-8 border-green-500">
+        <h2 class="text-3xl font-bold text-center text-green-500 mb-8">Formulario de Registro</h2>
+
+        <form action="/registro" method="POST" id="login-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <input type="text" name="usuNombre" placeholder="Nombre"
+                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+            <div>
+                <input type="text" name="usuApellidos" placeholder="Apellidos"
+                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+            <div>
+                <input type="text" name="autUsuario" placeholder="Usuario"
+                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+            <div>
+                <input type="password" name="autPass" placeholder="Contraseña"
+                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+            <div>
+                <input type="email" name="usuCorreo" placeholder="Correo"
+                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+            <div>
+                <input type="text" name="usuDni" placeholder="DNI"
+                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+            <div>
+                <input type="text" name="usuDireccion" placeholder="Dirección"
+                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+            <div>
+                <input type="text" name="usuTelefono" placeholder="Teléfono"
+                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+        </form>
+
+        <!-- Botones -->
+        <div class="flex justify-between mt-10">
+            <button type="button" onclick="window.history.back()"
+                    class="px-6 py-3 bg-gray-300 text-gray-800 rounded-xl hover:bg-gray-400 transition shadow-md">Atrás</button>
+            <button type="submit" form="login-form"
+                    class="px-6 py-3 bg-green-500 text-white rounded-xl hover:bg-green-600 transition shadow-md">Registrarse</button>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-green-500 text-white text-center py-4 shadow-inner mt-10">
+    © 2025, Hecho por Yasmin Lema Blanco
+</footer>
+</body>
+</html>

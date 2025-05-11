@@ -5,4 +5,6 @@ import proyectoDam.PlanetaDigital.model.Autentificacion;
 
 public interface AutentificacionRepository extends JpaRepository<Autentificacion, Integer> {
     Autentificacion findByAutUsuario(String autUsuario);
+    Autentificacion findByUsuarioCod(int usuarioCod);
+
 }

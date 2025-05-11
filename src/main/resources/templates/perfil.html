@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Perfil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body class="font-sans bg-gray-100 min-h-screen flex flex-col">
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="flex-grow flex justify-center items-center py-10 px-4">
+    <div class="bg-white p-10 rounded-3xl shadow-2xl border-t-8 border-green-500 w-full max-w-4xl">
+        <h2 class="text-3xl font-bold text-green-500 text-center mb-10">Mi Perfil</h2>
+
+        <form th:action="@{/perfil/editar}" method="post" class="grid grid-cols-1 sm:grid-cols-2 gap-6" id="formPerfil">
+            <!-- Usuario -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Usuario</label>
+                <p class="mt-1 p-3 bg-gray-100 rounded-md view-mode" th:text="${aut.autUsuario}">Usuario</p>
+                <input type="text" name="nuevoUsuario" th:value="${aut.autUsuario}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+            </div>
+
+            <!-- Contraseña -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Contraseña</label>
+                <input type="password" name="nuevaPassword" th:value="${aut.autPass}"
+                       class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+                <input type="password" disabled th:value="${aut.autPass}"
+                       class="view-mode mt-1 p-3 bg-gray-100 rounded-md w-full border border-gray-300 cursor-not-allowed" />
+            </div>
+
+            <!-- Nombre -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Nombre</label>
+                <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuNombre}">Nombre</p>
+                <input type="text" name="usuNombre" th:value="${usuario.usuNombre}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+            </div>
+
+            <!-- Apellidos -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Apellidos</label>
+                <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuApellidos}">Apellidos</p>
+                <input type="text" name="usuApellidos" th:value="${usuario.usuApellidos}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+            </div>
+
+            <!-- Correo -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+                <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuCorreo}">Correo</p>
+                <input type="email" name="usuCorreo" th:value="${usuario.usuCorreo}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+            </div>
+
+            <!-- DNI -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">DNI</label>
+                <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuDni}">DNI</p>
+                <input type="text" name="usuDni" th:value="${usuario.usuDni}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+            </div>
+
+            <!-- Teléfono -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Teléfono</label>
+                <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuTelefono}">Teléfono</p>
+                <input type="text" name="usuTelefono" th:value="${usuario.usuTelefono}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+            </div>
+
+            <!-- Dirección -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Dirección</label>
+                <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuDireccion}">Dirección</p>
+                <input type="text" name="usuDireccion" th:value="${usuario.usuDireccion}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+            </div>
+
+            <!-- Botones -->
+            <div class="sm:col-span-2 flex justify-between mt-8">
+                <a th:href="@{/paginaPrincipalSesionIniciada}"
+                   class="bg-gray-300 px-6 py-3 rounded-xl hover:bg-gray-400 transition shadow-md">
+                    Volver al inicio
+                </a>
+                <div>
+                    <button type="button" id="btnEditar"
+                            class="bg-green-500 text-white px-6 py-3 rounded-xl hover:bg-green-600 transition shadow-md">
+                        Editar
+                    </button>
+                    <button type="submit" id="btnGuardar"
+                            class="bg-green-500 text-white px-6 py-3 rounded-xl hover:bg-green-600 transition shadow-md hidden">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+<script>
+    const btnEditar = document.getElementById("btnEditar");
+    const btnGuardar = document.getElementById("btnGuardar");
+    const viewFields = document.querySelectorAll(".view-mode");
+    const editFields = document.querySelectorAll(".edit-mode");
+
+    btnEditar.addEventListener("click", () => {
+        viewFields.forEach(el => el.classList.add("hidden"));
+        editFields.forEach(el => el.classList.remove("hidden"));
+        btnEditar.classList.add("hidden");
+        btnGuardar.classList.remove("hidden");
+    });
+</script>
+
+</body>
+</html>

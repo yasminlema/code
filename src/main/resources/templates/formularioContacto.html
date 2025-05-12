@@ -18,7 +18,7 @@
             Formulario de Contacto
         </h2>
 
-        <form action="../controlador/send_mail.php" method="post" class="space-y-5">
+        <form id="contactoForm" class="space-y-5">
             <div>
                 <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" required
@@ -69,6 +69,33 @@
             if (!event.target.closest('.login-container')) {
                 loginDropdown.classList.add('hidden');
             }
+        });
+    });
+
+    document.getElementById('contactoForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const data = {
+            nombre: document.getElementById('nombre').value,
+            correo: document.getElementById('correo').value,
+            asunto: document.getElementById('asunto').value,
+            mensaje: document.getElementById('mensaje').value
+        };
+
+        fetch('http://localhost:8080/api/formularioContacto', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.text())
+        .then(msg => {
+            alert('Mensaje enviado correctamente');
+            document.getElementById('contactoForm').reset();
+        })
+        .catch(err => {
+            alert('Error al enviar el mensaje');
         });
     });
 </script>

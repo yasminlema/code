@@ -52,7 +52,7 @@ public class DetalleLibroController {
         Double promedio = valoracionRepository.obtenerPromedioValoracion(id);
         if (promedio == null) promedio = 0.0;
 
-        // 🖤 Comprobar si el libro es favorito
+        // Comprobar si el libro es favorito
         boolean esFavorito = false;
         if (usuarioCod != null) {
             esFavorito = favoritoRepository.existsByUsuarioCodAndLibroCod(usuarioCod, id);
@@ -66,11 +66,6 @@ public class DetalleLibroController {
             model.addAttribute("valoracionUsuario", 0); // No ha valorado
         }
 
-
         return "detalleLibro";
     }
-
-
-
-
 }

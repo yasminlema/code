@@ -28,7 +28,7 @@ public class PaginaLibrosPorCategoriaController {
         model.addAttribute("categorias", categorias);
 
         // Obtener los libros de la categoría seleccionada
-        List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCod(categoriaCod);
+        List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod);
         model.addAttribute("libros", librosPorCategoria);
 
         // Obtener el nombre de la categoría para mostrar en la vista

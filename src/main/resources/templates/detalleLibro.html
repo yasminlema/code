@@ -12,7 +12,7 @@
   <div class="max-w-4xl mx-auto my-10 bg-white rounded-lg shadow-lg p-8">
     <h1 class="text-3xl font-bold text-center mb-6" th:text="${libro.librotitulo}"></h1>
     <div class="flex flex-col md:flex-row items-center gap-8 mb-6">
-      <img th:src="@{'/imagenes/libros/' + ${libro.libroimagen} + '.jpg'}"
+      <img th:src="@{'/imagenes/libros/' + ${libro.libroimagen}}"
            th:alt="${libro.librotitulo}" class="w-52 h-auto rounded shadow">
 
       <div class="flex-1 space-y-3">
@@ -21,7 +21,7 @@
         <p><strong>Descripción: </strong><span th:text="${libro.libroDescripcion}"></span></p>
 
         <div class="flex gap-4 items-center mt-4">
-          <a href="../../libros/<?php echo htmlspecialchars($libro->getLibroImagen()); ?>.pdf"
+          <a th:href="@{'/pdf/libros/' + ${libro.libroPdf} + '#toolbar=0'}" target="_blank"
              class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
             leer
           </a>

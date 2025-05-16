@@ -44,7 +44,7 @@
         <!-- Botón admin -->
         <th:block th:if="${tipocuenta == 10}">
           <li>
-            <a href="admin">
+            <a th:href="@{/admin}">
               <img src="/imagenes/iconos/admin.svg" alt="admin" class="w-8 h-8 hover:scale-125 transition-transform">
             </a>
           </li>

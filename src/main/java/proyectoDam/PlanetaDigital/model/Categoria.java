@@ -7,15 +7,15 @@ import jakarta.persistence.*;
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int categoriaCod;
+    private Integer categoriaCod;
 
     private String catNombre;
 
-    public int getCategoriaCod() {
+    public Integer getCategoriaCod() {
         return categoriaCod;
     }
 
-    public void setCategoriaCod(int categoriaCod) {
+    public void setCategoriaCod(Integer categoriaCod) {
         this.categoriaCod = categoriaCod;
     }
 

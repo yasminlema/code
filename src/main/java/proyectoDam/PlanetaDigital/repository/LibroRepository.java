@@ -8,10 +8,10 @@ import proyectoDam.PlanetaDigital.model.Libro;
 import java.util.List;
 
 public interface LibroRepository extends JpaRepository<Libro, Integer> {
-    // Método para encontrar libros por librocat
-    List<Libro> findByLibrocat(int librocat);
 
-    List<Libro> findByCategoria_CategoriaCod(int categoriaCod);
+    List<Libro> findAllByOrderByLibrotituloAsc();
+
+    List<Libro> findByCategoria_CategoriaCodOrderByLibrotituloAsc(int categoriaCod);
 
     // Método para encontrar libros destacados (librocat = 10)
     @Query("SELECT l FROM Libro l WHERE l.librocat = 10 ORDER BY l.libroCod DESC")

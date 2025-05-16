@@ -28,7 +28,7 @@ public class PaginaPrincipalSesionIniciadaController {
 
         if (categoriaCod != null) {
             // Buscar libros por categoría
-            List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCod(categoriaCod);
+            List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod);
             model.addAttribute("libros", librosPorCategoria);
             model.addAttribute("categoriaNombre", categorias.stream()
                     .filter(c -> c.getCategoriaCod() == categoriaCod)

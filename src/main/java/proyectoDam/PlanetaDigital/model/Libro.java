@@ -13,6 +13,7 @@ public class Libro {
     private String librotitulo;
     private String libroautor;
     private String libroDescripcion;
+    private String libroPdf;
 
     @Column(name = "librocat") // Añadimos la anotación para el campo librocat
     private Integer librocat;
@@ -60,6 +61,10 @@ public class Libro {
     public void setLibroDescripcion(String libroDescripcion) {
         this.libroDescripcion = libroDescripcion;
     }
+
+    public String getLibroPdf() { return libroPdf; }
+
+    public void setLibroPdf(String libroPdf) { this.libroPdf = libroPdf; }
 
     public int getLibrocat() {
         return librocat;

@@ -15,7 +15,7 @@
   <div th:if="${favoritos != null and !favoritos.isEmpty()}" class="flex flex-wrap justify-center gap-6 py-6">
     <div th:each="libro : ${favoritos}" class="w-48 bg-white rounded-xl shadow-lg transform hover:scale-105 hover:shadow-2xl transition duration-300 ease-in-out p-4 text-center">
       <a th:href="@{'/detalleLibro/' + ${libro.libroCod}}">
-        <img th:src="@{'/imagenes/libros/' + ${libro.libroimagen} + '.jpg'}"
+        <img th:src="@{'/imagenes/libros/' + ${libro.libroimagen}}"
              th:alt="${libro.librotitulo}"
              class="h-48 w-full object-contain rounded-lg mb-4 transition-all duration-300 ease-in-out hover:opacity-90" />
       </a>

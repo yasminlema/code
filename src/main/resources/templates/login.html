@@ -8,7 +8,6 @@
 </head>
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 font-sans min-h-screen flex flex-col">
 
-<!-- Header -->
 <header class="bg-green-500 text-white px-6 py-4 flex justify-between items-center shadow-md">
     <a th:href="@{/}">
         <img th:src="@{/imagenes/logo/logo.png}" alt="Logo" class="w-44 h-auto">
@@ -18,14 +17,11 @@
     </a>
 </header>
 
-<!-- Main -->
 <main class="flex flex-grow flex-col lg:flex-row items-center justify-center p-8 gap-10">
-    <!-- Imagen de Portada más grande -->
     <div class="hidden lg:flex w-full lg:w-1/2 items-center justify-center">
         <img th:src="@{/imagenes/portada.jpeg}" alt="Imagen representativa" class="rounded-2xl shadow-lg w-full h-auto max-w-4xl object-cover">
     </div>
 
-    <!-- Formulario -->
     <div class="w-full max-w-md bg-white p-10 rounded-3xl shadow-2xl border-t-8 border-green-500">
         <h2 class="text-3xl font-bold text-green-500 text-center mb-8">Iniciar sesión</h2>
 
@@ -34,15 +30,18 @@
         </div>
 
         <form th:action="@{/controlador/login}" method="post" class="space-y-6">
-            <!-- Usuario -->
             <input type="text" name="autUsuario" placeholder="Usuario" required
                    class="w-full p-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
 
-            <!-- Contraseña -->
             <input type="password" name="autPass" placeholder="Contraseña" required
                    class="w-full p-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400">
 
-            <!-- Botones -->
+            <div class="text-center mt-4">
+                <a th:href="@{/olvide-contrasena}" class="text-sm text-green-600 hover:underline">
+                    ¿Olvidaste tu contraseña?
+                </a>
+            </div>
+
             <div class="flex justify-between pt-4">
                 <a th:href="@{/registrarse}"
                    class="px-6 py-3 bg-gray-300 text-gray-800 rounded-xl hover:bg-gray-400 transition shadow-md">
@@ -57,7 +56,6 @@
     </div>
 </main>
 
-<!-- Footer -->
 <footer class="bg-green-500 text-white text-center py-4 shadow-inner mt-10">
     © 2025, Hecho por Yasmin Lema Blanco
 </footer>

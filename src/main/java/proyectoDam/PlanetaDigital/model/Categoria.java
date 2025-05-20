@@ -11,13 +11,9 @@ public class Categoria {
 
     private String catNombre;
 
-    public Integer getCategoriaCod() {
-        return categoriaCod;
-    }
+    public Integer getCategoriaCod() {return categoriaCod;}
 
-    public void setCategoriaCod(Integer categoriaCod) {
-        this.categoriaCod = categoriaCod;
-    }
+    public void setCategoriaCod(Integer categoriaCod) {this.categoriaCod = categoriaCod;}
 
     public String getCatNombre() {
         return catNombre;

@@ -15,7 +15,7 @@ public class Libro {
     private String libroDescripcion;
     private String libroPdf;
 
-    @Column(name = "librocat") // Añadimos la anotación para el campo librocat
+    @Column(name = "librocat")
     private Integer librocat;
 
     @ManyToOne

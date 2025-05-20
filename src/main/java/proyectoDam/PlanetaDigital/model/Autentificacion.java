@@ -2,6 +2,8 @@ package proyectoDam.PlanetaDigital.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "autentificacion")
 public class Autentificacion {
@@ -22,6 +24,20 @@ public class Autentificacion {
 
     @Column(name = "autPass")
     private String autPass;
+
+    @Column(name = "reset_token")
+    private String resetToken;
+
+    @Column(name = "reset_token_expiracion")
+    private LocalDateTime resetTokenExpiracion;
+
+    public String getResetToken() {return resetToken;}
+
+    public void setResetToken(String resetToken) {this.resetToken = resetToken;}
+
+    public LocalDateTime getResetTokenExpiracion() {return resetTokenExpiracion;}
+
+    public void setResetTokenExpiracion(LocalDateTime resetTokenExpiracion) {this.resetTokenExpiracion = resetTokenExpiracion;}
 
     public int getAutentificacionCod() {
         return autentificacionCod;

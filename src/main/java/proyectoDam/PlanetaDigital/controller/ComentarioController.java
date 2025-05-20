@@ -28,10 +28,10 @@ public class ComentarioController {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
 
         if (usuarioCod == null) {
-            return "redirect:/login"; // o donde manejes la autenticación
+            return "redirect:/login";
         }
 
-        Usuario usuario = new Usuario(); // Solo necesitas el ID si usas EntityManager o save
+        Usuario usuario = new Usuario();
         usuario.setUsuarioCod(usuarioCod);
 
         Libro libro = libroRepository.findById(libroCod).orElse(null);
@@ -57,7 +57,6 @@ public class ComentarioController {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
         Comentario comentario = comentarioRepository.findById(comentarioCod).orElse(null);
 
-        // Verifica que el comentario existe y que el usuario actual es el propietario del comentario
         if (comentario != null && comentario.getUsuario().getUsuarioCod() == usuarioCod) {
             comentario.setComentLibro(nuevoComentario);
             comentarioRepository.save(comentario);
@@ -71,7 +70,7 @@ public class ComentarioController {
         Comentario comentario = comentarioRepository.findById(comentarioCod).orElse(null);
 
         if (comentario != null && comentario.getUsuario().getUsuarioCod() == usuarioCod) {
-            int libroCod = comentario.getLibro().getLibroCod(); // Guarda antes de eliminar
+            int libroCod = comentario.getLibro().getLibroCod();
             comentarioRepository.delete(comentario);
             return "redirect:/detalleLibro/" + libroCod;
         }

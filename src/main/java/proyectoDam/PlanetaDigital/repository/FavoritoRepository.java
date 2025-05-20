@@ -7,13 +7,10 @@ import proyectoDam.PlanetaDigital.model.Favorito;
 import proyectoDam.PlanetaDigital.model.Libro;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface FavoritoRepository extends JpaRepository<Favorito, Integer> {
 
     boolean existsByUsuarioCodAndLibroCod(Integer usuarioCod, Integer libroCod);
-
-    Optional<Favorito> findByUsuarioCodAndLibroCod(Integer usuarioCod, Integer libroCod);
 
     void deleteByUsuarioCodAndLibroCod(Integer usuarioCod, Integer libroCod);
 

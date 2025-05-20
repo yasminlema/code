@@ -24,13 +24,13 @@ public class UsuarioController {
     @GetMapping("/usuarios")
     public String getAll(Model model) {
         model.addAttribute("usuarios", usuarioRepository.findAll());
-        return "usuarios/list"; // Cambia esto por la vista que desees
+        return "usuarios/list";
     }
 
     @PostMapping("/usuarios")
     public String create(Usuario usuario) {
         usuarioRepository.save(usuario);
-        return "redirect:/usuarios"; // Redirige a la lista después de guardar
+        return "redirect:/usuarios";
     }
 
     @GetMapping("/perfil")
@@ -55,7 +55,6 @@ public class UsuarioController {
     @PostMapping("/perfil/editar")
     public String procesarEdicion(Usuario usuarioEditado,
                                   @RequestParam String nuevoUsuario,
-                                  @RequestParam String nuevaPassword,
                                   HttpSession session) {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
         if (usuarioCod == null) return "redirect:/login";
@@ -63,7 +62,6 @@ public class UsuarioController {
         Usuario usuario = usuarioRepository.findById(usuarioCod).orElse(null);
         Autentificacion aut = autentificacionRepository.findByAutUsuario((String) session.getAttribute("usuarioNombre"));
 
-        // Actualiza campos de usuario
         if (usuario != null) {
             usuario.setUsuNombre(usuarioEditado.getUsuNombre());
             usuario.setUsuApellidos(usuarioEditado.getUsuApellidos());
@@ -74,10 +72,8 @@ public class UsuarioController {
             usuarioRepository.save(usuario);
         }
 
-        // Actualiza datos de autentificación
         if (aut != null) {
             aut.setAutUsuario(nuevoUsuario);
-            aut.setAutPass(nuevaPassword);
             autentificacionRepository.save(aut);
             session.setAttribute("usuarioNombre", nuevoUsuario);
         }

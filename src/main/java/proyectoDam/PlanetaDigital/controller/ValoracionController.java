@@ -29,7 +29,7 @@ public class ValoracionController {
     public String valorarLibro(@RequestParam int libroCod, HttpSession session, @RequestParam int valoracion) {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
         if (usuarioCod == null) {
-            return "redirect:/login";  // Si no hay sesión activa, redirigir al login
+            return "redirect:/login";
         }
 
         Libro libro = libroRepository.findById(libroCod).orElse(null);

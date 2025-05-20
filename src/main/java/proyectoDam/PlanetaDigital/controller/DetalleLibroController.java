@@ -6,11 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import proyectoDam.PlanetaDigital.model.Comentario;
 import proyectoDam.PlanetaDigital.model.Libro;
-import proyectoDam.PlanetaDigital.model.Usuario;
 import proyectoDam.PlanetaDigital.repository.ComentarioRepository;
 import proyectoDam.PlanetaDigital.repository.FavoritoRepository;
 import proyectoDam.PlanetaDigital.repository.LibroRepository;
@@ -52,7 +49,6 @@ public class DetalleLibroController {
         Double promedio = valoracionRepository.obtenerPromedioValoracion(id);
         if (promedio == null) promedio = 0.0;
 
-        // Comprobar si el libro es favorito
         boolean esFavorito = false;
         if (usuarioCod != null) {
             esFavorito = favoritoRepository.existsByUsuarioCodAndLibroCod(usuarioCod, id);
@@ -63,7 +59,7 @@ public class DetalleLibroController {
             valoracionRepository.findByLibro_LibroCodAndUsuario_UsuarioCod(id, usuarioCod)
                     .ifPresent(valoracion -> model.addAttribute("valoracionUsuario", valoracion.getValoracion()));
         } else {
-            model.addAttribute("valoracionUsuario", 0); // No ha valorado
+            model.addAttribute("valoracionUsuario", 0);
         }
 
         return "detalleLibro";

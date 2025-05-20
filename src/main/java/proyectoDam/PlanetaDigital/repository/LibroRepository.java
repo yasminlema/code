@@ -13,15 +13,9 @@ public interface LibroRepository extends JpaRepository<Libro, Integer> {
 
     List<Libro> findByCategoria_CategoriaCodOrderByLibrotituloAsc(int categoriaCod);
 
-    // Método para encontrar libros destacados (librocat = 10)
     @Query("SELECT l FROM Libro l WHERE l.librocat = 10 ORDER BY l.libroCod DESC")
     List<Libro> findDestacados();
 
-    // Método para encontrar libros recientes (librocat = 20)
-    @Query("SELECT l FROM Libro l WHERE l.librocat = 20 ORDER BY l.libroCod DESC")
-    List<Libro> findRecientes();
-
-    // 🔍 Método para buscar libros por título (case-insensitive)
     @Query("SELECT l FROM Libro l WHERE LOWER(l.librotitulo) LIKE LOWER(CONCAT('%', :titulo, '%'))")
     List<Libro> buscarPorTitulo(@Param("titulo") String titulo);
 }

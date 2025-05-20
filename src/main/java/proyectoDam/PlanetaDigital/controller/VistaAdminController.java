@@ -9,7 +9,6 @@ import proyectoDam.PlanetaDigital.model.Categoria;
 import proyectoDam.PlanetaDigital.model.Libro;
 import proyectoDam.PlanetaDigital.repository.CategoriaRepository;
 import proyectoDam.PlanetaDigital.repository.LibroRepository;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -53,11 +52,9 @@ public class VistaAdminController {
 
             String nombreBase = libro.getLibrotitulo().trim().replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9_]", "");
 
-            // === IMAGEN ===
             String imagenNombre = nombreBase + ".jpg";
             File imagenDestino = new File(rutaBase + "imagenes/libros/", imagenNombre);
             if (nuevaImagen != null && !nuevaImagen.isEmpty()) {
-                // Borrar archivo anterior incluso si el nombre coincide
                 if (imagenDestino.exists()) imagenDestino.delete();
                 nuevaImagen.transferTo(imagenDestino);
                 libro.setLibroimagen(imagenNombre);
@@ -65,7 +62,6 @@ public class VistaAdminController {
                 libro.setLibroimagen(libro.getLibroimagen());
             }
 
-            // === PDF ===
             String pdfNombre = nombreBase + ".pdf";
             File pdfDestino = new File(rutaBase + "pdf/libros/", pdfNombre);
             if (nuevoPdf != null && !nuevoPdf.isEmpty()) {
@@ -104,30 +100,25 @@ public class VistaAdminController {
                 return "redirect:/admin?errorArchivo";
             }
 
-            // Ruta base externa al proyecto
             String rutaBase = System.getProperty("user.dir") + "/subidas/";
 
             File carpetaImagenes = new File(rutaBase + "imagenes/libros/");
             File carpetaPdf = new File(rutaBase + "pdf/libros/");
 
-            carpetaImagenes.mkdirs(); // Crea si no existen
+            carpetaImagenes.mkdirs();
             carpetaPdf.mkdirs();
 
-// Normalizar nombre del archivo desde el título
             String nombreBase = titulo.trim().replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9_]", "");
 
-// Construir nombres de archivo únicos
             String imagenNombre = nombreBase + ".jpg";
             String pdfNombre = nombreBase + ".pdf";
 
-// Guardar archivos
             File imagenDestino = new File(carpetaImagenes, imagenNombre);
             imagen.transferTo(imagenDestino);
 
             File pdfDestino = new File(carpetaPdf, pdfNombre);
             pdf.transferTo(pdfDestino);
 
-// Crear objeto libro
             Libro libro = new Libro();
             libro.setLibrotitulo(titulo);
             libro.setLibroautor(autor);
@@ -154,7 +145,6 @@ public class VistaAdminController {
             if (libro != null) {
                 String rutaBase = System.getProperty("user.dir") + "/subidas/";
 
-                // Eliminar imagen si existe
                 if (libro.getLibroimagen() != null) {
                     File imagenArchivo = new File(rutaBase + "imagenes/libros/" + libro.getLibroimagen());
                     if (imagenArchivo.exists()) {
@@ -162,7 +152,6 @@ public class VistaAdminController {
                     }
                 }
 
-                // Eliminar PDF si existe
                 if (libro.getLibroPdf() != null) {
                     File pdfArchivo = new File(rutaBase + "pdf/libros/" + libro.getLibroPdf());
                     if (pdfArchivo.exists()) {
@@ -170,11 +159,10 @@ public class VistaAdminController {
                     }
                 }
 
-                // Eliminar de la base de datos
                 libroRepository.deleteById(id);
             }
         } catch (Exception e) {
-            e.printStackTrace(); // Puedes loguear con un logger si deseas
+            e.printStackTrace();
         }
 
         return "redirect:/admin";

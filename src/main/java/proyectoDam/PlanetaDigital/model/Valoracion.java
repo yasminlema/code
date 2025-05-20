@@ -22,7 +22,6 @@ public class Valoracion {
     @JoinColumn(name = "usuarioCod")
     private Usuario usuario;
 
-    // Getters y Setters
     public Integer getValoracionCod() {
         return valoracionCod;
     }

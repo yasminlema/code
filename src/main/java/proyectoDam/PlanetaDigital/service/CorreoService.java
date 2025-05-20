@@ -27,4 +27,20 @@ public class CorreoService {
         );
         mailSender.send(mensaje);
     }
+
+    public void enviarRecuperacion(String destinoCorreo, String token) {
+        String url = "http://localhost:8080/restablecer-contrasena?token=" + token;
+
+        SimpleMailMessage mensaje = new SimpleMailMessage();
+        mensaje.setTo(destinoCorreo);
+        mensaje.setSubject("Recuperación de contraseña - Planeta Digital");
+        mensaje.setText("Hola, has solicitado restablecer tu contraseña.\n\n" +
+                "Haz clic en el siguiente enlace para establecer una nueva:\n" +
+                url + "\n\n" +
+                "Este enlace expirará en 30 minutos.\n\n" +
+                "Si no solicitaste esto, ignora este mensaje.");
+
+        mailSender.send(mensaje);
+    }
+
 }

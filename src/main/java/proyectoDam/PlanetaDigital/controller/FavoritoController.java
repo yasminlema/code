@@ -21,7 +21,7 @@ public class FavoritoController {
     private FavoritoRepository favoritoRepository;
 
     @Autowired
-    private LibroRepository libroRepository; // <- Añade esta línea
+    private LibroRepository libroRepository;
 
     @PostMapping("/corazonFavorito")
     @Transactional
@@ -46,7 +46,7 @@ public class FavoritoController {
     public String verFavoritos(HttpSession session, Model model) {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
         if (usuarioCod == null) {
-            return "redirect:/login"; // Redirige si no está logueado
+            return "redirect:/login";
         }
 
         List<Libro> librosFavoritos = favoritoRepository.findLibrosFavoritosByUsuarioCod(usuarioCod);

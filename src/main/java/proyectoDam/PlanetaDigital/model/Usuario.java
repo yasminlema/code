@@ -17,7 +17,6 @@ public class Usuario {
     private Integer usuTelefono;
     private String usuDireccion;
 
-    // Getters y Setters
     public int getUsuarioCod() {
         return usuarioCod;
     }

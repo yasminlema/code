@@ -23,15 +23,12 @@ public class PaginaLibrosPorCategoriaController {
 
     @GetMapping("/PagLibrosPorCategoria")
     public String librosPorCategoria(@RequestParam Integer categoriaCod, Model model) {
-        // Obtener la lista de categorías
         List<Categoria> categorias = categoriaRepository.findAll();
         model.addAttribute("categorias", categorias);
 
-        // Obtener los libros de la categoría seleccionada
         List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod);
         model.addAttribute("libros", librosPorCategoria);
 
-        // Obtener el nombre de la categoría para mostrar en la vista
         String categoriaNombre = categorias.stream()
                 .filter(c -> c.getCategoriaCod() == categoriaCod)
                 .findFirst()

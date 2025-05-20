@@ -7,7 +7,6 @@
 </head>
 <body class="bg-gradient-to-br from-gray-100 to-gray-200 font-sans min-h-screen flex flex-col">
 
-<!-- Header -->
 <header class="bg-green-500 text-white px-6 py-4 flex justify-between items-center shadow-md">
     <a th:href="@{/}">
         <img th:src="@{/imagenes/logo/logo.png}" alt="Logo" class="w-44 h-auto">
@@ -17,7 +16,6 @@
     </a>
 </header>
 
-<!-- Main content -->
 <main class="flex-grow flex items-center justify-center px-6 py-12">
     <div class="bg-white shadow-2xl rounded-3xl w-full max-w-4xl p-10 border-t-8 border-green-500">
         <h2 class="text-3xl font-bold text-center text-green-500 mb-8">Formulario de Registro</h2>
@@ -42,11 +40,8 @@
             </div>
 
             <div class="relative">
-                <input type="password" name="autPass" id="autPass" placeholder="Contraseña"
-                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400 pr-12">
                 <button type="button" onclick="togglePassword()"
                         class="absolute right-3 top-3 text-gray-500 hover:text-gray-700 focus:outline-none">
-                    <!-- Ícono de ojo (único) -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                          viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -55,6 +50,9 @@
                               d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
                     </svg>
                 </button>
+                <input type="password" name="autPass" id="autPass" placeholder="Contraseña"
+                       class="w-full px-4 py-3 border rounded-xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400 pr-12">
+
                 <p class="text-red-500 text-sm mt-1 error-message hidden"></p>
             </div>
 
@@ -83,7 +81,6 @@
             </div>
         </form>
 
-        <!-- Botones -->
         <div class="flex justify-between mt-10">
             <button type="button" onclick="window.history.back()"
                     class="px-6 py-3 bg-gray-300 text-gray-800 rounded-xl hover:bg-gray-400 transition shadow-md">Atrás</button>
@@ -93,7 +90,6 @@
     </div>
 </main>
 
-<!-- Footer -->
 <footer class="bg-green-500 text-white text-center py-4 shadow-inner mt-10">
     © 2025, Hecho por Yasmin Lema Blanco
 </footer>
@@ -143,7 +139,7 @@
             errorEl.textContent = "";
             errorEl.classList.add("hidden");
 
-            // Show error
+            // mostrar error
             if (value === "") {
                 errorEl.textContent = "Este campo es obligatorio.";
                 errorEl.classList.remove("hidden");
@@ -156,7 +152,7 @@
         });
 
         if (isValid) {
-            form.submit(); // Envía si todo es válido
+            form.submit();
         }
     });
 </script>

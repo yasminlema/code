@@ -14,7 +14,6 @@ public class Favorito {
 
     private Integer libroCod;
 
-    // Getters y Setters
     public Integer getFavoritoCod() {
         return favoritoCod;
     }

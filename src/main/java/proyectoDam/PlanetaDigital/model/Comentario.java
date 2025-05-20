@@ -25,7 +25,6 @@ public class Comentario {
     @Column(name = "comentFecha")
     private LocalDateTime comentFecha;
 
-    // Getters y Setters
     public int getComentarioCod() {
         return comentarioCod;
     }

@@ -27,16 +27,14 @@ public class PaginaPrincipalSesionIniciadaController {
         model.addAttribute("categorias", categorias);
 
         if (categoriaCod != null) {
-            // Buscar libros por categoría
             List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod);
             model.addAttribute("libros", librosPorCategoria);
             model.addAttribute("categoriaNombre", categorias.stream()
                     .filter(c -> c.getCategoriaCod() == categoriaCod)
                     .findFirst().map(Categoria::getCatNombre).orElse(""));
         } else {
-            // Obtener libros destacados (librocat = 10)
             List<Libro> destacados = libroRepository.findDestacados();
-            System.out.println("Destacados: " + destacados); // Imprime la lista de destacados
+            System.out.println("Destacados: " + destacados);
             model.addAttribute("destacados", destacados);
         }
 

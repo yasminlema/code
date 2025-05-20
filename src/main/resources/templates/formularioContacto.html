@@ -43,11 +43,14 @@
                           class="w-full border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-green-500 focus:outline-none transition-all duration-300 text-base"></textarea>
             </div>
 
-            <button type="submit"
+            <button type="submit" id="botonEnviar"
                     class="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition-all duration-300 transform mt-4 text-base">
                 Enviar
             </button>
         </form>
+    </div>
+    <div id="loader" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-green-500 border-solid"></div>
     </div>
 </main>
 
@@ -75,6 +78,13 @@
     document.getElementById('contactoForm').addEventListener('submit', function (e) {
         e.preventDefault();
 
+        const loader = document.getElementById('loader');
+        const botonEnviar = document.getElementById('botonEnviar');
+
+        loader.classList.remove('hidden');
+        botonEnviar.disabled = true;
+        botonEnviar.classList.add('opacity-50', 'cursor-not-allowed');
+
         const data = {
             nombre: document.getElementById('nombre').value,
             correo: document.getElementById('correo').value,
@@ -96,6 +106,13 @@
         })
         .catch(err => {
             alert('Error al enviar el mensaje');
+        })
+        .finally(() => {
+            loader.classList.add('hidden');
+            botonEnviar.disabled = false;
+            botonEnviar.classList.remove('opacity-50', 'cursor-not-allowed');
         });
     });
+
+
 </script>

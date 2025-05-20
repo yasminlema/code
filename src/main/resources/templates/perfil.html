@@ -29,6 +29,7 @@
                        class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
                 <input type="password" disabled th:value="${aut.autPass}"
                        class="view-mode mt-1 p-3 bg-gray-100 rounded-md w-full border border-gray-300 cursor-not-allowed" />
+                <p class="text-red-500 text-sm mt-1 error-message hidden"></p>
             </div>
 
             <!-- Nombre -->
@@ -36,6 +37,7 @@
                 <label class="block text-sm font-medium text-gray-700">Nombre</label>
                 <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuNombre}">Nombre</p>
                 <input type="text" name="usuNombre" th:value="${usuario.usuNombre}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+                <p class="text-red-500 text-sm mt-1 error-message hidden"></p>
             </div>
 
             <!-- Apellidos -->
@@ -43,6 +45,7 @@
                 <label class="block text-sm font-medium text-gray-700">Apellidos</label>
                 <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuApellidos}">Apellidos</p>
                 <input type="text" name="usuApellidos" th:value="${usuario.usuApellidos}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+                <p class="text-red-500 text-sm mt-1 error-message hidden"></p>
             </div>
 
             <!-- Correo -->
@@ -50,6 +53,7 @@
                 <label class="block text-sm font-medium text-gray-700">Correo electrónico</label>
                 <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuCorreo}">Correo</p>
                 <input type="email" name="usuCorreo" th:value="${usuario.usuCorreo}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+                <p class="text-red-500 text-sm mt-1 error-message hidden"></p>
             </div>
 
             <!-- DNI -->
@@ -57,6 +61,7 @@
                 <label class="block text-sm font-medium text-gray-700">DNI</label>
                 <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuDni}">DNI</p>
                 <input type="text" name="usuDni" th:value="${usuario.usuDni}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+                <p class="text-red-500 text-sm mt-1 error-message hidden"></p>
             </div>
 
             <!-- Teléfono -->
@@ -64,6 +69,7 @@
                 <label class="block text-sm font-medium text-gray-700">Teléfono</label>
                 <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuTelefono}">Teléfono</p>
                 <input type="text" name="usuTelefono" th:value="${usuario.usuTelefono}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+                <p class="text-red-500 text-sm mt-1 error-message hidden"></p>
             </div>
 
             <!-- Dirección -->
@@ -71,6 +77,7 @@
                 <label class="block text-sm font-medium text-gray-700">Dirección</label>
                 <p class="view-mode mt-1 p-3 bg-gray-100 rounded-md" th:text="${usuario.usuDireccion}">Dirección</p>
                 <input type="text" name="usuDireccion" th:value="${usuario.usuDireccion}" class="edit-mode mt-1 p-3 border rounded-md w-full hidden" />
+                <p class="text-red-500 text-sm mt-1 error-message hidden"></p>
             </div>
 
             <!-- Botones -->
@@ -97,6 +104,22 @@
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var loginIcon = document.getElementById('loginIcon');
+        var loginDropdown = document.getElementById('loginDropdown');
+
+        loginIcon.addEventListener('click', function (event) {
+            event.preventDefault();
+            loginDropdown.classList.toggle('hidden');
+        });
+
+        window.addEventListener('click', function (event) {
+            if (!event.target.closest('.login-container')) {
+                loginDropdown.classList.add('hidden');
+            }
+        });
+    });
+
     const btnEditar = document.getElementById("btnEditar");
     const btnGuardar = document.getElementById("btnGuardar");
     const viewFields = document.querySelectorAll(".view-mode");
@@ -107,6 +130,87 @@
         editFields.forEach(el => el.classList.remove("hidden"));
         btnEditar.classList.add("hidden");
         btnGuardar.classList.remove("hidden");
+    });
+
+    const formPerfil = document.getElementById("formPerfil");
+
+    formPerfil.addEventListener("submit", function (event) {
+        const fields = [
+            {
+                name: "nuevoUsuario",
+                validator: val => val.trim() !== "",
+                message: "El campo usuario es obligatorio"
+            },
+            {
+                name: "nuevaPassword",
+                validator: val => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,12}$/.test(val),
+                message: "La contraseña debe tener entre 8 y 12 caracteres, al menos una mayúscula, una minúscula y un número"
+            },
+            {
+                name: "usuNombre",
+                validator: val => /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(val),
+                message: "El nombre solo puede contener letras y espacios"
+            },
+            {
+                name: "usuApellidos",
+                validator: val => /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(val),
+                message: "Los apellidos solo pueden contener letras y espacios"
+            },
+            {
+                name: "usuCorreo",
+                validator: val => /^[^@]+@[^@]+\.(com)$/.test(val),
+                message: "El correo no es válido"
+            },
+            {
+                name: "usuDni",
+                validator: val => {
+                    if (!/^\d{8}[A-Za-z]$/.test(val)) return false;
+                    const letras = "TRWAGMYFPDXBNJZSQVHLCKE";
+                    const numero = parseInt(val.slice(0, 8), 10);
+                    const letra = val.slice(8).toUpperCase();
+                    return letras[numero % 23] === letra;
+                },
+                message: "El DNI debe tener 8 números y una letra válida"
+            },
+            {
+                name: "usuTelefono",
+                validator: val => /^\d{9}$/.test(val),
+                message: "El teléfono debe tener 9 dígitos numéricos"
+            },
+            {
+                name: "usuDireccion",
+                validator: val => /^[A-Za-z0-9ÁÉÍÓÚáéíóúÑñ\s]+$/.test(val),
+                message: "La dirección solo puede contener letras, números y espacios"
+            }
+        ];
+
+        let isValid = true;
+
+        fields.forEach(({ name, validator, message }) => {
+            const input = formPerfil.querySelector(`[name="${name}"]`);
+            const errorEl = input ? input.nextElementSibling : null;
+
+            if (!input || !errorEl) return;
+
+            const value = input.value.trim();
+
+            errorEl.textContent = "";
+            errorEl.classList.add("hidden");
+
+            if (value === "") {
+                errorEl.textContent = "Este campo es obligatorio.";
+                errorEl.classList.remove("hidden");
+                isValid = false;
+            } else if (!validator(value)) {
+                errorEl.textContent = message;
+                errorEl.classList.remove("hidden");
+                isValid = false;
+            }
+        });
+
+        if (!isValid) {
+            event.preventDefault(); // Cancela el envío si hay errores
+        }
     });
 </script>
 

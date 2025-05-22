@@ -21,16 +21,19 @@ public class ComentarioController {
     @Autowired
     private ComentarioRepository comentarioRepository;
 
+    // funcion para agregar un comentario
     @PostMapping("/agregarComentario")
     public String agregarComentario(@RequestParam("comentario") String comentarioTexto,
                                     @RequestParam("libroCod") int libroCod,
                                     HttpSession session) {
-        Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
+        Integer usuarioCod = (Integer) session.getAttribute("usuarioCod"); // recupera el usuariocod desde la sesion
 
+        // si no encuentra la sesion te redirige al login
         if (usuarioCod == null) {
             return "redirect:/login";
         }
 
+        // crea un nuevo objeto usuario y le asigna el usuariocod sacado de la sesion
         Usuario usuario = new Usuario();
         usuario.setUsuarioCod(usuarioCod);
 
@@ -39,42 +42,48 @@ public class ComentarioController {
             return "redirect:/paginaPrincipalSesionIniciada";
         }
 
+        // crea un nuevo objeto Comentario y le asigna el usuario, el libro, el texto y la fecha
         Comentario nuevoComentario = new Comentario();
         nuevoComentario.setUsuario(usuario);
         nuevoComentario.setLibro(libro);
         nuevoComentario.setComentLibro(comentarioTexto);
         nuevoComentario.setComentFecha(java.time.LocalDateTime.now());
 
-        comentarioRepository.save(nuevoComentario);
+        comentarioRepository.save(nuevoComentario); // guarda el comentario en la base de datos
 
         return "redirect:/detalleLibro/" + libroCod;
     }
 
+    // funcion para editar un comentario
     @PostMapping("/editarComentario")
     public String editarComentario(@RequestParam("comentarioCod") int comentarioCod,
                                    @RequestParam("nuevoComentario") String nuevoComentario,
                                    HttpSession session) {
-        Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
-        Comentario comentario = comentarioRepository.findById(comentarioCod).orElse(null);
+        Integer usuarioCod = (Integer) session.getAttribute("usuarioCod"); // recupera el usuariocod desde la sesion
+        Comentario comentario = comentarioRepository.findById(comentarioCod).orElse(null); // recupera el comentario por el comentariocod
 
+        // verifica que el comentario pertenezca al usuario que tiene la sesion iniciada
         if (comentario != null && comentario.getUsuario().getUsuarioCod() == usuarioCod) {
-            comentario.setComentLibro(nuevoComentario);
-            comentarioRepository.save(comentario);
+            comentario.setComentLibro(nuevoComentario); // actualiza el texto del comentario
+            comentarioRepository.save(comentario); // y gusrda los cambios en la BD
         }
         return "redirect:/detalleLibro/" + comentario.getLibro().getLibroCod();
     }
 
+    // funcion para eliminar el comentario
     @GetMapping("/controlador/eliminarComentario")
     public String eliminarComentario(@RequestParam("comentarioCod") int comentarioCod, HttpSession session) {
-        Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
-        Comentario comentario = comentarioRepository.findById(comentarioCod).orElse(null);
+        Integer usuarioCod = (Integer) session.getAttribute("usuarioCod"); // recupera el usuariocod desde la sesion
+        Comentario comentario = comentarioRepository.findById(comentarioCod).orElse(null); // recupera el comentario por el comentariocod
 
+        // verifica que el comentario pertenezca al usuario que tiene la sesion iniciada
         if (comentario != null && comentario.getUsuario().getUsuarioCod() == usuarioCod) {
             int libroCod = comentario.getLibro().getLibroCod();
-            comentarioRepository.delete(comentario);
+            comentarioRepository.delete(comentario); // elimina el comentario de la base de datos
             return "redirect:/detalleLibro/" + libroCod;
         }
 
-        return "redirect:/paginaPrincipalSesionIniciada";
+        // en el caso de que el usuario no coincida con el usuario que tiene la sesion iniciada , redirige a la pagina de login
+        return "redirect:/paginaPrincipalSesionIniciada"; 
     }
 }

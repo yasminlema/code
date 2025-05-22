@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class FormularioContactoController {
-
+    // metodo para mostrar el formulario de contacto y gusrda datos de la sesion en el model
     @GetMapping("/formularioContacto")
     public String formularioContacto(HttpSession session, Model model) {
         Integer tipocuenta = (Integer) session.getAttribute("tipocuenta");

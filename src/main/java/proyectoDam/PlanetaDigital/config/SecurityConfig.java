@@ -14,12 +14,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(CsrfConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());
+                .csrf(CsrfConfigurer::disable)  // desactiva la proteccion contra ataques Cross-Site Request Forgery
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());  //permite acceso libre a todos los endpoints
 
         return http.build();
     }
 
+    // funcion para encriptar contraseña y para verificar la contraseña en la sesion
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

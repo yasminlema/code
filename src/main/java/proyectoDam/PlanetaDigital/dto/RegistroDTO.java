@@ -1,3 +1,4 @@
+// Transporta los datos del formulario de registro
 package proyectoDam.PlanetaDigital.dto;
 
 public class RegistroDTO {

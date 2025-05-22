@@ -1,3 +1,4 @@
+// Clase para transportar los datos del formulario de contacto
 package proyectoDam.PlanetaDigital.dto;
 
 public class FormularioContactoDTO {

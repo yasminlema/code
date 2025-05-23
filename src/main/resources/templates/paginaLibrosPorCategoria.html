@@ -12,6 +12,12 @@
 
 <section class="p-6 border-b border-gray-200 bg-white shadow-sm">
   <ul class="flex space-x-4 justify-center">
+    <li>
+      <a th:href="@{/CatalogoLibros}"
+         class="bg-green-500 text-white py-2 px-4 rounded-full hover:bg-green-700 transition ease-in-out duration-300">
+        Todos los libros
+      </a>
+    </li>
     <li th:each="categoria : ${categorias}">
       <a th:href="@{/PagLibrosPorCategoria(categoriaCod=${categoria.categoriaCod})}"
          th:text="${categoria.catNombre}"

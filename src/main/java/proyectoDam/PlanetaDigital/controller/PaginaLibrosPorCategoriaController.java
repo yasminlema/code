@@ -42,4 +42,18 @@ public class PaginaLibrosPorCategoriaController {
 
         return "paginaLibrosPorCategoria";
     }
+
+    //metodo para listar todos los libros de la base de datos
+    @GetMapping("/CatalogoLibros")
+    public String todosLosLibros(Model model) {
+        List<Categoria> categorias = categoriaRepository.findAll();
+        model.addAttribute("categorias", categorias);
+
+        List<Libro> todosLosLibros = libroRepository.findAll();
+        model.addAttribute("libros", todosLosLibros);
+
+        model.addAttribute("categoriaNombre", "Todos los libros");
+
+        return "paginaLibrosPorCategoria";
+    }
 }

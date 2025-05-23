@@ -16,9 +16,10 @@ public class CorreoService {
     @Autowired
     private Environment env;
 
+    // metodo para enviar el formulario de contacto por correo al responsable
     public void enviarContacto(FormularioContactoDTO dto) {
         SimpleMailMessage mensaje = new SimpleMailMessage();
-        mensaje.setTo("planetadigital2207@gmail.com"); // <-- cambia esto a tu correo real
+        mensaje.setTo("planetadigital2207@gmail.com");
         mensaje.setSubject("Nuevo mensaje de contacto: " + dto.getAsunto());
         mensaje.setText(
                 "Nombre: " + dto.getNombre() + "\n" +
@@ -28,6 +29,7 @@ public class CorreoService {
         mailSender.send(mensaje);
     }
 
+    // metodo para enviar por correo al usuario el enlace de recuperacion de la contraseña con su respectivo token
     public void enviarRecuperacion(String destinoCorreo, String token) {
         String url = "http://localhost:8080/restablecer-contrasena?token=" + token;
 

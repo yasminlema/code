@@ -21,11 +21,14 @@ public class PaginaPrincipalSesionIniciadaController {
     @Autowired
     private LibroRepository libroRepository;
 
+    //metodo para mostrar la pagina principal de un usuario logeado, con una muestra de libros y las categorias disponibles
     @GetMapping("/paginaPrincipalSesionIniciada")
     public String home(@RequestParam(required = false) Integer categoriaCod, Model model) {
+        // busca en la BD y guarda en el model todas las categorias de la base de datos, para mostrarlas en la vista
         List<Categoria> categorias = categoriaRepository.findAll();
         model.addAttribute("categorias", categorias);
 
+        // si se selecciona una categoria y su categoria 
         if (categoriaCod != null) {
             List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod);
             model.addAttribute("libros", librosPorCategoria);
@@ -33,6 +36,7 @@ public class PaginaPrincipalSesionIniciadaController {
                     .filter(c -> c.getCategoriaCod() == categoriaCod)
                     .findFirst().map(Categoria::getCatNombre).orElse(""));
         } else {
+            // busca los libros que tienen la condicion de destacados, los gusrda en el model y los muestra en la vista
             List<Libro> destacados = libroRepository.findDestacados();
             System.out.println("Destacados: " + destacados);
             model.addAttribute("destacados", destacados);

@@ -30,7 +30,7 @@ public class DetalleLibroController {
     @Autowired
     private ValoracionRepository valoracionRepository;
 
-    // funcion para mostrar el libro y su informacion
+    // metodo para mostrar el libro y su informacion
     @GetMapping("/detalleLibro/{id}")
     public String detalleLibro(@PathVariable("id") int id, Model model, HttpSession session) {
         // busca el libro con ese id pasado por la URL, si no existe te redirige a la pagina principal

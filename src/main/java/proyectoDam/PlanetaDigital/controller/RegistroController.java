@@ -21,13 +21,16 @@ public class RegistroController {
     @Autowired
     private AutentificacionRepository autentificacionRepository;
 
+    // muestra el formulario de registro
     @GetMapping("/registrarse")
     public String mostrarFormularioRegistro() {
-        return "registro"; // asegúrate de que el archivo se llame registro.html y esté en templates
+        return "registro";
     }
 
+    //metodo para gusrdar los datos del formulario de registro en la BD
     @PostMapping("/registro")
     public String registrarUsuario(@ModelAttribute RegistroDTO registro) {
+        // se crea un objeto usuario, se llenan los campos con los datos recogidos por el dto
         Usuario usuario = new Usuario();
         usuario.setUsuNombre(registro.getUsuNombre());
         usuario.setUsuApellidos(registro.getUsuApellidos());
@@ -36,18 +39,21 @@ public class RegistroController {
         usuario.setUsuTelefono(registro.getUsuTelefono());
         usuario.setUsuDireccion(registro.getUsuDireccion());
 
+        // y se gusrdan en la base de datos
         Usuario usuarioGuardado = usuarioRepository.save(usuario);
 
+        // se cifra la contraseña escoguda por el usuario
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String hashedPassword = encoder.encode(registro.getAutPass());
 
+        // se crea un objeto autentificacion y se llenan los campos con los datos recogidos por el dto
         Autentificacion aut = new Autentificacion();
         aut.setAutUsuario(registro.getAutUsuario());
         aut.setAutPass(hashedPassword);
-        aut.setAuttipocuenta(20);
-        aut.setUsuarioCod(usuarioGuardado.getUsuarioCod());
+        aut.setAuttipocuenta(20); // establecemos el tipocuenta por defecto en 20
+        aut.setUsuarioCod(usuarioGuardado.getUsuarioCod()); // le asociamos a esa autentificacion el usuariocod del usuario creado
 
-        autentificacionRepository.save(aut);
+        autentificacionRepository.save(aut); // se guardan los datos en la base de datos
 
         return "redirect:/login";
     }

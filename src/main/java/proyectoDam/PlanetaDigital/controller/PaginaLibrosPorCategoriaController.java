@@ -21,14 +21,17 @@ public class PaginaLibrosPorCategoriaController {
     @Autowired
     private LibroRepository libroRepository;
 
+    // metodo para mostrar en la pagina todos los libros de una categoria en concreto que elija el usuario
     @GetMapping("/PagLibrosPorCategoria")
     public String librosPorCategoria(@RequestParam Integer categoriaCod, Model model) {
-        List<Categoria> categorias = categoriaRepository.findAll();
-        model.addAttribute("categorias", categorias);
+        List<Categoria> categorias = categoriaRepository.findAll(); // carga todas las categorias de la BD
+        model.addAttribute("categorias", categorias); // y las guarda en el model para despues mostrarlas en la vista
 
-        List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod);
-        model.addAttribute("libros", librosPorCategoria);
+        List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod); // busca todos los libros de la categoria elegida por el usuario
+        model.addAttribute("libros", librosPorCategoria); // y los guarda en el model
 
+        // busca el nombre de la categoria por el codigo de la categoria, si la encuentra la gusrda en el model para despues mostrarla
+        // sino devuelve un mensaje
         String categoriaNombre = categorias.stream()
                 .filter(c -> c.getCategoriaCod() == categoriaCod)
                 .findFirst()

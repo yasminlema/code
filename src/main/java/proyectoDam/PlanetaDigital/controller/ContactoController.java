@@ -13,7 +13,7 @@ public class ContactoController {
     @Autowired
     private CorreoService correoService;
 
-    // funcion para enviar un correo con la informacion del formulario de contacto
+    // metodo para enviar un correo con la informacion del formulario de contacto
     @PostMapping
     public String enviarMensaje(@RequestBody FormularioContactoDTO dto) {
         correoService.enviarContacto(dto); // recibe los datos del formulario por medio del dto

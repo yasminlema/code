@@ -15,7 +15,7 @@ public class BusquedaController {
     @Autowired
     private LibroRepository libroRepository;
 
-    // funcion para mostrar los libros que coincidan con la busqueda del usuario
+    // metodo para mostrar los libros que coincidan con la busqueda del usuario
     @GetMapping("/buscarLibros")
     public String buscarLibros(@RequestParam("buscar") String buscar, Model model) { // recibe la busqueda por URL
         List<Libro> resultados = libroRepository.buscarPorTitulo(buscar); // busca entre los libros de la base de datos las coincidencias

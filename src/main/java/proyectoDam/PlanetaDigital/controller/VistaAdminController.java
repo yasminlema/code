@@ -22,11 +22,13 @@ public class VistaAdminController {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    // metodo que se encarga de listar todos los libros de la base de datos y las categorias, ademas de filtrar por categoria
     @GetMapping("/admin")
     public String mostrarLibros(@RequestParam(name = "categoriaFiltro", required = false) Integer categoriaCod, Model model) {
-        List<Categoria> categorias = categoriaRepository.findAll();
+        List<Categoria> categorias = categoriaRepository.findAll(); //crea una lista con todas las categorias de la base de datos 
+        //crea una lista con todos los libros de la base de datos por orden alfabetico
         List<Libro> libros = (categoriaCod != null)
-                ? libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod)
+                ? libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod) //si se aplica un filtro de categoria, solo muestra los libros de esa categoria
                 : libroRepository.findAllByOrderByLibrotituloAsc();
 
         model.addAttribute("categorias", categorias);
@@ -36,6 +38,7 @@ public class VistaAdminController {
         return "admin";
     }
 
+    // metodo para actualiza cualquier campo de los libros
     @PostMapping("/actualizarLibro")
     public String actualizarLibro(
             @ModelAttribute Libro libro,
@@ -43,17 +46,20 @@ public class VistaAdminController {
             @RequestParam(value = "nuevoPdf", required = false) MultipartFile nuevoPdf
     ) {
         try {
-            String rutaBase = System.getProperty("user.dir") + "/subidas/";
-            Libro libroExistente = libroRepository.findById(libro.getLibroCod()).orElse(null);
+            String rutaBase = System.getProperty("user.dir") + "/subidas/"; // ruta base de las imagenes y pdf
+            Libro libroExistente = libroRepository.findById(libro.getLibroCod()).orElse(null); // busca el libro por librocod
 
+            // si no se encuentra el libro devuelve un error
             if (libroExistente == null) {
                 return "redirect:/admin?errorLibroNoEncontrado";
             }
 
-            String nombreBase = libro.getLibrotitulo().trim().replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9_]", "");
+            String nombreBase = libro.getLibrotitulo().trim().replaceAll("\\s+", "").replaceAll("[^a-zA-Z0-9_]", ""); // nombre base de la imagen o/y pdf nuevo que se va a subir
 
+            // nombre y ruta donde se gusrdara la imagen
             String imagenNombre = nombreBase + ".jpg";
             File imagenDestino = new File(rutaBase + "imagenes/libros/", imagenNombre);
+            // si se añade una imagen nueva se sube esa imagen, pero si ademas ya hay una subida primero borra la subida para subir la nueva
             if (nuevaImagen != null && !nuevaImagen.isEmpty()) {
                 if (imagenDestino.exists()) imagenDestino.delete();
                 nuevaImagen.transferTo(imagenDestino);
@@ -62,6 +68,7 @@ public class VistaAdminController {
                 libro.setLibroimagen(libro.getLibroimagen());
             }
 
+            // lo mismo de la imagen lo hace con el pdf
             String pdfNombre = nombreBase + ".pdf";
             File pdfDestino = new File(rutaBase + "pdf/libros/", pdfNombre);
             if (nuevoPdf != null && !nuevoPdf.isEmpty()) {
@@ -72,6 +79,7 @@ public class VistaAdminController {
                 libro.setLibroPdf(libro.getLibroPdf());
             }
 
+            // si no se modifica la categoria mantiene la que ya tiene
             if (libro.getCategoria() == null || libro.getCategoria().getCategoriaCod() == null) {
                 libro.setCategoria(libroExistente.getCategoria());
             }
@@ -84,6 +92,7 @@ public class VistaAdminController {
         return "redirect:/admin";
     }
 
+    //metodo para agregar libros nuevos, parecido al metodo de actualizar
     @PostMapping("/guardarLibro")
     public String guardarLibro(
             @RequestParam("librotitulo") String titulo,
@@ -138,10 +147,12 @@ public class VistaAdminController {
         return "redirect:/admin";
     }
 
+    //metodo para eliminar un libro
     @GetMapping("/eliminarLibro/{id}")
     public String eliminarLibro(@PathVariable("id") Integer id) {
         try {
-            Libro libro = libroRepository.findById(id).orElse(null);
+            Libro libro = libroRepository.findById(id).orElse(null); // busca el libro por el id del libro
+            // si existe el libro busca la imagen y el pdf y si hay los borra antes de borrar el libro de la BD
             if (libro != null) {
                 String rutaBase = System.getProperty("user.dir") + "/subidas/";
 

@@ -14,7 +14,7 @@
         <label for="categoriaFiltro" class="mr-2 text-gray-700">Filtrar por:</label>
         <select name="categoriaFiltro" id="categoriaFiltro" onchange="this.form.submit()"
                 class="px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-400">
-            <option value="">Por Género</option>
+            <option value="">Género</option>
             <option th:each="categoria : ${categorias}"
                     th:value="${categoria.categoriaCod}"
                     th:selected="${categoria.categoriaCod == categoriaFiltro}"
@@ -27,7 +27,7 @@
 <section class="relative px-8">
     <a href="/admin/categorias"
        class="absolute -top-16 left-10 bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded transition">
-        Gestionar Categorías
+        Gestionar Géneros
     </a>
     <button onclick="mostrarFormularioAgregar()"
             class="absolute -top-16 right-10 bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded transition">
@@ -64,7 +64,7 @@
             </div>
 
             <div>
-                <label for="categoria" class="block text-gray-700">Categoría</label>
+                <label for="categoria" class="block text-gray-700">Género</label>
                 <select name="categoriaCod" id="categoria"
                         class="w-full border border-gray-300 rounded px-4 py-2 focus:ring-2 focus:ring-green-400">
                     <option th:each="cat : ${categorias}" th:value="${cat.categoriaCod}" th:text="${cat.catNombre}"></option>

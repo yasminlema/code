@@ -21,7 +21,7 @@ public class ComentarioController {
     @Autowired
     private ComentarioRepository comentarioRepository;
 
-    // funcion para agregar un comentario
+    // metodo para agregar un comentario
     @PostMapping("/agregarComentario")
     public String agregarComentario(@RequestParam("comentario") String comentarioTexto,
                                     @RequestParam("libroCod") int libroCod,
@@ -54,7 +54,7 @@ public class ComentarioController {
         return "redirect:/detalleLibro/" + libroCod;
     }
 
-    // funcion para editar un comentario
+    // metodo para editar un comentario
     @PostMapping("/editarComentario")
     public String editarComentario(@RequestParam("comentarioCod") int comentarioCod,
                                    @RequestParam("nuevoComentario") String nuevoComentario,
@@ -70,7 +70,7 @@ public class ComentarioController {
         return "redirect:/detalleLibro/" + comentario.getLibro().getLibroCod();
     }
 
-    // funcion para eliminar el comentario
+    // metodo para eliminar el comentario
     @GetMapping("/controlador/eliminarComentario")
     public String eliminarComentario(@RequestParam("comentarioCod") int comentarioCod, HttpSession session) {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod"); // recupera el usuariocod desde la sesion

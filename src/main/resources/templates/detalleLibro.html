@@ -66,7 +66,6 @@
       <p class="mt-2 comentario-texto" th:attr="data-comentario-cod=${comentario.comentarioCod}"
          th:text="${comentario.comentLibro}">Texto del comentario</p>
 
-      <!-- Solo muestra los botones si el comentario pertenece al usuario autenticado -->
       <div class="flex justify-end gap-2 mt-2" th:if="${comentario.usuario.usuarioCod == usuarioCod}">
         <a href="#" class="editarComentarioBtn"
            th:attr="data-comentario-cod=${comentario.comentarioCod}">

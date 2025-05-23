@@ -62,9 +62,13 @@ public class Libro {
         this.libroDescripcion = libroDescripcion;
     }
 
-    public String getLibroPdf() { return libroPdf; }
+    public String getLibroPdf() { 
+        return libroPdf; 
+    }
 
-    public void setLibroPdf(String libroPdf) { this.libroPdf = libroPdf; }
+    public void setLibroPdf(String libroPdf) { 
+        this.libroPdf = libroPdf; 
+    }
 
     public int getLibrocat() {
         return librocat;

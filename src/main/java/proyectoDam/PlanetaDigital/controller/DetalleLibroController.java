@@ -51,10 +51,6 @@ public class DetalleLibroController {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod");
         model.addAttribute("usuarioCod", usuarioCod);
 
-        
-        Double promedio = valoracionRepository.obtenerPromedioValoracion(id);
-        if (promedio == null) promedio = 0.0;
-
         // comprueba si el usuario tiene ese libro marcado como favorito
         boolean esFavorito = false;
         if (usuarioCod != null) {

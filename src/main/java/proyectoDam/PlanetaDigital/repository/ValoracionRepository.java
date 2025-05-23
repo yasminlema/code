@@ -9,7 +9,4 @@ import java.util.Optional;
 
 public interface ValoracionRepository extends JpaRepository<Valoracion, Integer> {
     Optional<Valoracion> findByLibro_LibroCodAndUsuario_UsuarioCod(int libroCod, int usuarioCod);
-
-    @Query("SELECT AVG(v.valoracion) FROM Valoracion v WHERE v.libro.libroCod = :libroCod")
-    Double obtenerPromedioValoracion(@Param("libroCod") int libroCod);
 }

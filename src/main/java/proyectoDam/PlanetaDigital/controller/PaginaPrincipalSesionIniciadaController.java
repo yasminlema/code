@@ -28,19 +28,11 @@ public class PaginaPrincipalSesionIniciadaController {
         List<Categoria> categorias = categoriaRepository.findAll();
         model.addAttribute("categorias", categorias);
 
-        // si se selecciona una categoria y su categoria 
-        if (categoriaCod != null) {
-            List<Libro> librosPorCategoria = libroRepository.findByCategoria_CategoriaCodOrderByLibrotituloAsc(categoriaCod);
-            model.addAttribute("libros", librosPorCategoria);
-            model.addAttribute("categoriaNombre", categorias.stream()
-                    .filter(c -> c.getCategoriaCod() == categoriaCod)
-                    .findFirst().map(Categoria::getCatNombre).orElse(""));
-        } else {
             // busca los libros que tienen la condicion de destacados, los gusrda en el model y los muestra en la vista
             List<Libro> destacados = libroRepository.findDestacados();
             System.out.println("Destacados: " + destacados);
             model.addAttribute("destacados", destacados);
-        }
+
 
         return "paginaPrincipalSesionIniciada";
     }

@@ -15,7 +15,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(CsrfConfigurer::disable)  // desactiva la proteccion contra ataques Cross-Site Request Forgery
-                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());  //permite acceso libre a todos los endpoints
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll());  //permite acceso libre a todos los endpoints y hace que la pagina de login se vea como yo la diseñe, no la suya propia
 
         return http.build();
     }

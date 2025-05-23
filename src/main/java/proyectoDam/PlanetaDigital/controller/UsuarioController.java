@@ -21,18 +21,6 @@ public class UsuarioController {
     @Autowired
     private AutentificacionRepository autentificacionRepository;
 
-    @GetMapping("/usuarios")
-    public String getAll(Model model) {
-        model.addAttribute("usuarios", usuarioRepository.findAll());
-        return "usuarios/list";
-    }
-
-    @PostMapping("/usuarios")
-    public String create(Usuario usuario) {
-        usuarioRepository.save(usuario);
-        return "redirect:/usuarios";
-    }
-
     // metodo que muestra la informacion del usuario logeado
     @GetMapping("/perfil")
     public String verPerfil(HttpSession session, Model model) {

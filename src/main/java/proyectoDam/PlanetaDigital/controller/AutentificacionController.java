@@ -35,7 +35,7 @@ public class AutentificacionController {
         return "login";
     }
 
-    // funcion para logear al usuario si pone las credenciales correctas o mostrar un error si no son correctas
+    // metodo para logear al usuario si pone las credenciales correctas o mostrar un error si no son correctas
     // para verificar las contraseñas utilizamos la dependencia de ByCrypt, que tambn se encarga de encriptar las contraseñas cuando se crea un nuevo usuario
     @PostMapping("/controlador/login")
     public String login(@RequestParam String autUsuario,
@@ -60,13 +60,13 @@ public class AutentificacionController {
         return "login";
     }
 
-    // funcion que te lleva a la pagina de recuperacion de contraseña
+    // metodo que te lleva a la pagina de recuperacion de contraseña
     @GetMapping("/olvide-contrasena")
     public String mostrarFormularioRecuperacion() {
         return "recuperar_contrasena";
     }
 
-    // funcion para enviar el correo de recuperacion de la contraseña
+    // metodo para enviar el correo de recuperacion de la contraseña
     @PostMapping("/olvide-contrasena")
     public String procesarRecuperacion(@RequestParam String autUsuario, Model model) {
         Autentificacion aut = autentificacionRepository.findByAutUsuario(autUsuario);
@@ -96,7 +96,7 @@ public class AutentificacionController {
         return "recuperar_contrasena";
     }
 
-    // funcion para acceder a la pagina de cambio de contraseña con el token enviado por correo
+    // metodo para acceder a la pagina de cambio de contraseña con el token enviado por correo
     @GetMapping("/restablecer-contrasena")
     public String mostrarFormularioCambio(@RequestParam String token, Model model) {
         Autentificacion aut = autentificacionRepository.findByResetToken(token);
@@ -111,7 +111,7 @@ public class AutentificacionController {
         return "cambiar_contrasena";
     }
 
-    // funcion para el cambio de la contraseña una vez todo lo anterior haya salido bn y procede a borrar el token
+    // metodo para el cambio de la contraseña una vez todo lo anterior haya salido bn y procede a borrar el token
     @PostMapping("/restablecer-contrasena")
     public String procesarCambio(@RequestParam String token,
                                  @RequestParam String nuevaContrasena,

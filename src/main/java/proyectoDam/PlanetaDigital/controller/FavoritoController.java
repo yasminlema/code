@@ -25,7 +25,7 @@ public class FavoritoController {
 
     @PostMapping("/corazonFavorito")
     @Transactional // hace que todo lo que pasa en esta funcion se trate como una sola unidad de trabajo, por lo tanto si en algun momento del proceso falla algo este no guarda/cambia nada en la base de datos
-    // funcion que se ejecuta cada vez que pulsamos en el corazon de la pagina
+    // metodo que se ejecuta cada vez que pulsamos en el corazon de la pagina
     public String toggleFavorito(@RequestParam Integer usuarioCod,
                                  @RequestParam Integer libroCod) {
 
@@ -45,7 +45,7 @@ public class FavoritoController {
         return "redirect:/detalleLibro/" + libroCod;
     }
 
-    // funcion para mostrar todos los libros favoritos en la pagina
+    // metodo para mostrar todos los libros favoritos en la pagina
     @GetMapping("/misFavoritos")
     public String verFavoritos(HttpSession session, Model model) {
         Integer usuarioCod = (Integer) session.getAttribute("usuarioCod"); // recoge el usuariocod de la sesion
